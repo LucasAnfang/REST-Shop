@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 const Order = require('../models/order');
 const Product = require('../models/product');
@@ -96,7 +96,9 @@ router.get('/:orderId', (req, res, next) => {
         })
         .catch(err => {
             console.log(err);
-            res.status(500).json({ error: err });
+            res.status(500).json({ 
+                error: err 
+            });
         });
 });
 
@@ -117,7 +119,9 @@ router.delete('/:orderId', (req, res, next) => {
         })
         .catch(err => {
             console.log(err);
-            res.status(500).json({ error: err });
+            res.status(500).json({ 
+                error: err 
+            });
         });
 });
 

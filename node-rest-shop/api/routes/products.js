@@ -57,7 +57,9 @@ router.get('/', (req, res, next) => {
         })
         .catch(err => {
             console.log(err);
-            res.status(500).json({ error: err });
+            res.status(500).json({ 
+                error: err 
+            });
         });
 });
 
@@ -88,7 +90,9 @@ router.post('/', upload.single('productImage'), (req, res, next) => {
         })
         .catch(err => {
             console.log(err);
-            res.status(500).json({ error: err });
+            res.status(500).json({ 
+                error: err 
+            });
         });
 });
 
@@ -108,12 +112,16 @@ router.get('/:productId', (req, res, next) => {
                     }
                 });
             } else {
-                res.status(404).json({message: 'No valid entry found for provided ID'})
+                res.status(404).json({
+                    message: 'No valid entry found for provided ID'
+                })
             }
         })
         .catch(err => {
             console.log(err);
-            res.status(500).json({ error: err });
+            res.status(500).json({ 
+                error: err 
+            });
         });
 });
 
@@ -137,7 +145,9 @@ router.patch('/:productId', (req, res, next) => {
         })
         .catch(err => {
             console.log(err);
-            res.status(500).json({ error: err });
+            res.status(500).json({ 
+                error: err 
+            });
         });
 });
 
@@ -158,7 +168,9 @@ router.delete('/:productId', (req, res, next) => {
         })
         .catch(err => {
             console.log(err);
-            res.status(500).json({ error: err });
+            res.status(500).json({ 
+                error: err 
+            });
         });
 });
 
