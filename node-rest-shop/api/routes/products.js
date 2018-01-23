@@ -14,7 +14,7 @@ const storage = multer.diskStorage({
 
 const fileFilter = (req, file, cb) => {
     // reject a file
-    if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
         cb(null, true);
     }
     else {
@@ -103,7 +103,7 @@ router.get('/:productId', (req, res, next) => {
         .exec()
         .then(doc => {
             console.log("From database", doc);
-            if(doc) {
+            if (doc) {
                 res.status(200).json({
                     product: doc,
                     request: {
@@ -128,7 +128,7 @@ router.get('/:productId', (req, res, next) => {
 router.patch('/:productId', (req, res, next) => {
     const id = req.params.productId;
     const updateOps = {};
-    for(const ops of req.body) {
+    for (const ops of req.body) {
         updateOps[ops.propName] = ops.value;
     }
     Product.update({ _id: id }, { $set: updateOps})

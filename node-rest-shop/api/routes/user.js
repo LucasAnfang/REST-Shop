@@ -9,13 +9,13 @@ router.post('/signup', (req, res, next) => {
     User.find({ email: req.body.email })
         .exec()
         .then(user => {
-            if(user.length >= 1){
+            if (user.length >= 1){
                 return res.status(409).json({
                     message: 'Email already in use'
                 });
             } else {
                 bcrypt.hash(req.body.password, 10, (err, hash) => {
-                    if(err) {
+                    if (err) {
                         return res.status(500).json({
                             error: err
                         });
@@ -45,6 +45,41 @@ router.post('/signup', (req, res, next) => {
         })
 });
 
+router.post('/login', (req, res, next) => {
+    User.findOne({ email: req.body.email })
+        .exec()
+        .then(user => {
+            if (user === null) {
+                return res.status(401).json({
+                    message: 'Auth failed'
+                });
+            }
+            // check if password matches
+            bcrypt.compare(req.body.password, user.password, (err, result) => {
+                if (err) {
+                    return res.status(401).json({
+                        message: 'Auth failed'
+                    });
+                } 
+                if (result) {
+                    return res.status(200).json({
+                        message: 'Auth successful'
+                    });
+                }
+                // at this point the password must be incorrect
+                return res.status(401).json({
+                    message: 'Auth failed'
+                });
+            });
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({ 
+                error: err 
+            });
+        });
+});
+
 router.delete('/:userId', (req, res, next) => {
     User.remove({ _id: req.params.userId })
         .exec()
@@ -60,18 +95,6 @@ router.delete('/:userId', (req, res, next) => {
                 error: err 
             });
         });
-});
-
-router.post('/login', (req, res, next) => {
-    bcrypt.hash(req.body.password, 10, (err, hash) => {
-        if(err) {
-            return res.status(500).json({
-                error: err
-            });
-        } else {
-
-        }
-    });
 });
 
 module.exports = router;

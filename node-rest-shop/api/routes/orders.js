@@ -8,7 +8,7 @@ const Product = require('../models/product');
 router.post('/', (req, res, next) => {
     Product.findById(req.body.productId)
         .then(product => {
-            if(!product){
+            if (!product){
                 return res.status(404).json({
                     message: 'Product not found'
                 });
@@ -81,7 +81,7 @@ router.get('/:orderId', (req, res, next) => {
         .populate('product', 'price name _id')
         .exec()
         .then(order => {
-            if(order) {
+            if (order) {
                 res.status(200).json({
                     order: order,
                     request: {
