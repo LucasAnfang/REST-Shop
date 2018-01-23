@@ -12,6 +12,8 @@ mongoose.connect(
 );
 
 app.use(morgan('dev'));
+// make the uplaod url available
+app.use('/uploads', express.static('uploads'))
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
